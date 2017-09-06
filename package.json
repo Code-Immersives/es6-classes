@@ -1,0 +1,18 @@
+{
+  "name": "es6-classes",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "\"jest\""
+  },
+  "keywords": [
+    "es6",
+    "classes"
+  ],
+  "author": "toneloke",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^21.0.1"
+  }
+}
