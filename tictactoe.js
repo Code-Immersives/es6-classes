@@ -52,4 +52,3 @@ tonyVSbrian.picBox(0, 1) // player2
 tonyVSbrian.picBox(1, 0)
 tonyVSbrian.picBox(0, 0)
 tonyVSbrian.picBox(1, 2) // player 1 should win
-
