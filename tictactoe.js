@@ -19,6 +19,12 @@ export class TicTacToe {
                   [null, null, null]]
     this.turns = 0
   }
+  // this.board[2][2]
+  // [
+  // [ 0,0 - 0,1 - 0,2],
+  // [ 1,0 - 1,1 - 1,2],
+  // [ 2,0 - 2,1 - 2,2]
+  // ]
   picBox (x, y) {
     // find location in array if not null do not let player pic the box, console.log('player must choose an empty space') and return false
     // if box is null then place the current players symbol in the box location
@@ -32,6 +38,7 @@ export class TicTacToe {
     // check current player agains the players array and swap them
   }
   checkWinner () {
+
     // check for turns < 5 if so return false, not enough for a win yet
     // check for tie game based on turns
     // if true stop the game and start a new one

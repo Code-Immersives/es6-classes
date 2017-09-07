@@ -11,7 +11,6 @@ describe('TicTacToe Class', () => {
 
   test('constructor is defined', () => {
     let t = new TicTacToe(Tony, Brian)
-    console.log('tst', t)
     expect(game.constructor).toBeDefined()
   })
 
