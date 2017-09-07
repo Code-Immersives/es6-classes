@@ -1,16 +1,15 @@
 import {Player, TicTacToe} from '../tictactoe'
+
 describe('TicTacToe Class', () => {
   let game
+  let player1 = new Player({name: 'tony', symbol: 'X'})
+  let player2 = new Player({name: 'brian', symbol: 'O'})
 
   beforeEach(() => {
-    let Tony = new Player('tony', 'X')
-    let Brian = new Player('brian', 'O')
-    game = new TicTacToe(Tony, Brian)
-    console.log(game)
+    game = new TicTacToe(player1, player2)
   })
 
   test('constructor is defined', () => {
-    let t = new TicTacToe(Tony, Brian)
     expect(game.constructor).toBeDefined()
   })
 
