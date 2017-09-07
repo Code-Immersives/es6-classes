@@ -20,7 +20,7 @@ export class TicTacToe {
     this.turns = 0
   }
   picBox (x, y) {
-    // find location in array if not null do not let player pic the box
+    // find location in array if not null do not let player pic the box, console.log('player must choose an empty space') and return false
     // if box is null then place the current players symbol in the box location
     // run the check for winner method
     // if true then stop game and increment current players score by one
@@ -44,15 +44,15 @@ export class TicTacToe {
 
 }
 // creating my two players
-let Tony = new Player('tony', 'X')
-let Brian = new Player('brian', 'O')
-
-// start the game
-let tonyVSbrian = new TicTacToe(Tony, Brian)
-
-// first player will place symbol in a box
-tonyVSbrian.picBox(1, 1) // player1
-tonyVSbrian.picBox(0, 1) // player2
-tonyVSbrian.picBox(1, 0)
-tonyVSbrian.picBox(0, 0)
-tonyVSbrian.picBox(1, 2) // player 1 should win
+// let Tony = new Player('tony', 'X')
+// let Brian = new Player('brian', 'O')
+//
+// // start the game
+// let tonyVSbrian = new TicTacToe(Tony, Brian)
+//
+// // first player will place symbol in a box
+// tonyVSbrian.picBox(1, 1) // player1
+// tonyVSbrian.picBox(0, 1) // player2
+// tonyVSbrian.picBox(1, 0)
+// tonyVSbrian.picBox(0, 0)
+// tonyVSbrian.picBox(1, 2) // player 1 should win
