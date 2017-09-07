@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "\"jest\""
+    "test": "jest"
   },
   "keywords": [
     "es6",
@@ -14,5 +14,12 @@
   "license": "ISC",
   "devDependencies": {
     "jest": "^21.0.1"
+  },
+  "jest": {
+    "testEnvironment": "jest-environment-node"
+  },
+  "dependencies": {
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.0"
   }
 }

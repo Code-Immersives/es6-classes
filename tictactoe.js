@@ -1,4 +1,8 @@
-class Player {
+// ====================TicTacToe Lab============================================
+// Create a JS Classes that will simulate a game of tic tac toe with two players
+// When you are done or if you want to check parts of the app run Npm test
+
+export class Player {
   constructor (name, symbol) {
     this.name = name
     this.symbol = symbol
@@ -6,7 +10,7 @@ class Player {
   }
 }
 
-class TicTacToe {
+export class TicTacToe {
   constructor (player1, player2) {
     this.currentPlayer = player1
     this.players = [player1, player2]

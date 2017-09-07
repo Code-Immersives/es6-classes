@@ -38,6 +38,7 @@ Batman.addPower(['alfred', 'batmobile', 'utility belt', 'batplane'])
 Batman.addPower(['smoke bombs', 'new suit'])
 Batman.name = 'Change his name'
 
+// ====================BLENDER EXERCISE============================================
 // blender class , constructor will take a array of strings ['apple', 'orange']
 // have method that turns the blender on or off
 // second method called mix that will take the array of strings and blend the words to return a single string
