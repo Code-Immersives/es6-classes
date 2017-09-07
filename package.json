@@ -13,13 +13,11 @@
   "author": "toneloke",
   "license": "ISC",
   "devDependencies": {
-    "jest": "^21.0.1"
+    "jest": "^21.0.1",
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.0"
   },
   "jest": {
     "testEnvironment": "jest-environment-node"
-  },
-  "dependencies": {
-    "babel-core": "^6.26.0",
-    "babel-preset-env": "^1.6.0"
   }
 }
