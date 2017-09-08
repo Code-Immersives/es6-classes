@@ -17,6 +17,12 @@
   // [ 2,0 - 2,1 - 2,2]
   // ]
    picBox (x, y) {
+     if (this.board[x][y]) {
+       return 'cannot place symbol on a occupied square'
+     } else {
+       this.board[x][y] = this.currentPlayer.symbol
+       return this.checkWinner(x, y)
+     }
     // find location in array if not null do not let player pic the box, console.log('player must choose an empty space') and return false
     // if box is null then place the current players symbol in the box location
     // run the check for winner method
@@ -27,9 +33,23 @@
    turnChange () {
     // increment turns by 1
     // check current player agains the players array and swap them
+     this.turns++
+     if (this.currentPlayer === this.players[0]) {
+       this.currentPlayer = this.players[1]
+     } else {
+       this.currentPlayer = this.players[0]
+     }
    }
-   checkWinner () {
-
+   checkWinner (x, y) {
+     let playerCheck = `${this.currentPlayer.symbol}${this.currentPlayer.symbol}${this.currentPlayer.symbol}`
+     if (this.turns < 5) return this.turnChange()
+     if (this.horizantalCheck(x, playerCheck) || this.diagnalCheck(playerCheck) || this.verticalCheck(y, playerCheck)) {
+       return `${this.currentPlayer.name} you win!`
+     } else {
+       this.turnChange()
+       if (this.turns >= 9) return 'tie game'
+       return 'keep trying'
+     }
     // check for turns < 5 if so return false, not enough for a win yet
     // check for tie game based on turns
     // if true stop the game and start a new one
@@ -37,7 +57,37 @@
     // check 8 possible conditions against the current player symbol in board array
     // return true win there is a winner conditions
     // else return false
-
+   }
+   horizantalCheck (x, playerCheck) {
+     if (this.board[x].join('') === playerCheck) {
+       return true
+     } else {
+       return false
+     }
+   }
+   verticalCheck (y, playerCheck) {
+     let checkArra = []
+     for (let i = 0; i < this.board.length; i++) {
+       checkArra.push(this.board[i][y])
+     }
+     if (checkArra.join('') === playerCheck) {
+       return true
+     } else {
+       return false
+     }
+   }
+   diagnalCheck (playerCheck) {
+     let checkOne = []
+     let checkTwo = []
+     for (let i = 0, j = 2; i < 3; i++, j--) {
+       checkOne.push(this.board[i][i])
+       checkTwo.push(this.board[i][j])
+     }
+     if (checkTwo.join('') === playerCheck || checkOne.join('') === playerCheck) {
+       return true
+     } else {
+       return false
+     }
    }
 
 }
@@ -49,4 +99,3 @@
      this.totalScore = 0
    }
 }
-
