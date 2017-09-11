@@ -12,9 +12,9 @@
    }
   // this.board[2][2]
   // [
-  // [ 0,0 - 0,1 - 0,2],
-  // [ 1,0 - 1,1 - 1,2],
-  // [ 2,0 - 2,1 - 2,2]
+  // [ x - x - O],
+  // [ x - O - 1,2],
+  // [ X - O - 2,2]
   // ]
    picBox (x, y) {
      if (this.board[x][y]) {
@@ -59,13 +59,35 @@
     // else return false
    }
    horizantalCheck (x, playerCheck) {
-
+     if (this.board[x].join('') === playerCheck) {
+       return true
+     } else {
+       return false
+     }
    }
    verticalCheck (y, playerCheck) {
-
+     let checkArra = []
+     for (let i = 0; i < 3; i++) {
+       checkArra.push(this.board[i][y])
+     }
+     if (checkArra.join('') === playerCheck) {
+       return true
+     } else {
+       return false
+     }
    }
    diagnalCheck (playerCheck) {
-
+     let checkOne = []
+     let checkTwo = []
+     for (let i = 0, j = 2; i < 3; i++, j--) {
+       checkOne.push(this.board[i][i])
+       checkTwo.push(this.board[i][j])
+     }
+     if (checkOne.join('') === playerCheck || checkTwo.join('') === playerCheck) {
+       return true
+     } else {
+       return false
+     }
    }
 
 }
