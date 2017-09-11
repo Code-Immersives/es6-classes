@@ -59,35 +59,13 @@
     // else return false
    }
    horizantalCheck (x, playerCheck) {
-     if (this.board[x].join('') === playerCheck) {
-       return true
-     } else {
-       return false
-     }
+
    }
    verticalCheck (y, playerCheck) {
-     let checkArra = []
-     for (let i = 0; i < this.board.length; i++) {
-       checkArra.push(this.board[i][y])
-     }
-     if (checkArra.join('') === playerCheck) {
-       return true
-     } else {
-       return false
-     }
+
    }
    diagnalCheck (playerCheck) {
-     let checkOne = []
-     let checkTwo = []
-     for (let i = 0, j = 2; i < 3; i++, j--) {
-       checkOne.push(this.board[i][i])
-       checkTwo.push(this.board[i][j])
-     }
-     if (checkTwo.join('') === playerCheck || checkOne.join('') === playerCheck) {
-       return true
-     } else {
-       return false
-     }
+
    }
 
 }
