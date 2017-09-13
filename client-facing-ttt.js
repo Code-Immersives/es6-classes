@@ -1,31 +1,4 @@
-// =========================================
-// GameBoard Class for rendering 9x9 grid
-// =========================================
-class GameBoard {
-  constructor () {
-    this.boardDiv = document.getElementById('game-board')
-    this.board = [[null, null, null],
-                 [null, null, null],
-                 [null, null, null]]
-    this.render()
-    this.boardDiv.addEventListener('click', this.onBoxClick.bind(this))
-  }
-  addBox (x, y) {
-    return `<div class="box" id="${x}-${y}">Null</div>`
-  }
-  onBoxClick () {
-    let clickedBox = event.target.id
-    console.log('the clickedBox', clickedBox)
-  }
-  render () {
-    for (let i = 0; i < this.board.length; i++) {
-      for (let j = 0; j < this.board[i].length; j++) {
-        this.boardDiv.innerHTML += this.addBox(i, j)
-      }
-    }
-  }
-}
-let myBoard = new GameBoard()
+
 // =========================================
 // Player Form Class for creating players and forms
 // =========================================
@@ -36,11 +9,25 @@ class PlayerForm {
     this.render() // render
     this.playerSubmitBtn = document.getElementById(`${this.player}-btn`)
     this.playerSubmitBtn.addEventListener('click', this.addPlayer.bind(this))
-    this.nameInput = document.getElementsByClassName(this.player)[0]
-    this.symbolInput = document.getElementsByClassName(this.player)[1]
+    this.nameInput = ''
+    this.symbolInput = ''
   }
   addPlayer () {
-    // Create a player and add to game object
+    // Create a player and add to game object and change the display
+    this.nameInput = document.getElementsByClassName(this.player)[0].value
+    this.symbolInput = document.getElementsByClassName(this.player)[1].value
+    let p = new Player(this.nameInput, this.symbolInput)
+    myGame.players.push(p)
+    myGame.currentPlayer = myGame.players[0]
+    this.renderPlayerInfo(p)
+  }
+  renderPlayerInfo (p) {
+    let chipHTML = `<div class="chip">
+                      ${p.name}
+                      <i>${p.symbol}</i>
+                      Score: ${p.totalScore}
+                    </div>`
+    this.pForm.innerHTML = chipHTML
   }
   renderForm () {
     return `<form>
@@ -66,33 +53,57 @@ class PlayerForm {
   }
 }
 // =========================================
-// PLAYER CLASS
+// GameBoard Class for rendering 9x9 grid
 // =========================================
-class Player {
-  constructor (name, symbol) {
-    this.name = name
-    this.symbol = symbol
-    this.totalScore = 0
+class GameBoard {
+  constructor () {
+    this.boardDiv = document.getElementById('game-board')
+    this.board = [[null, null, null],
+                 [null, null, null],
+                 [null, null, null]]
+    this.render()
+    this.boardDiv.addEventListener('click', this.onBoxClick.bind(this))
+  }
+  changeBox (x, y) {
+    let box = document.getElementById(`${x}-${y}`)
+    box.innerHTML = myGame.currentPlayer.symbol
+  }
+  addBox (x, y) {
+    return `<div class="box" id="${x}-${y}">&#9634</div>`
+  }
+  onBoxClick () {
+    let x = event.target.id[0]
+    let y = event.target.id[2]
+    if (myGame.picBox(x, y)) {
+      myGame.currentPlayer.totalScore++
+      alert(`${myGame.currentPlayer.name} you win!`)
+    }
+  }
+  render () {
+    for (let i = 0; i < this.board.length; i++) {
+      for (let j = 0; j < this.board[i].length; j++) {
+        this.boardDiv.innerHTML += this.addBox(i, j)
+      }
+    }
   }
 }
 // =========================================
 // TIC TAC TOE CLASS AND GAME LOGIC
 // =========================================
 class TicTacToe {
-  constructor (player1, player2) {
-    this.players = [player1, player2]
-    this.currentPlayer = player1
-    this.board = [[null, null, null],
-                 [null, null, null],
-                 [null, null, null]]
-    this.turns = 0
+  constructor () {
+    this.players = []
+    this.currentPlayer = {}
+    this.guiBoard = {}
+    this.turns = 1
   }
 
   picBox (x, y) {
-    if (this.board[x][y]) {
+    if (this.guiBoard.board[x][y]) {
       return 'cannot place symbol on a occupied square'
     } else {
-      this.board[x][y] = this.currentPlayer.symbol
+      this.guiBoard.board[x][y] = this.currentPlayer.symbol
+      this.guiBoard.changeBox(x, y)
       return this.checkWinner(x, y)
     }
   }
@@ -108,15 +119,15 @@ class TicTacToe {
     let playerCheck = `${this.currentPlayer.symbol}${this.currentPlayer.symbol}${this.currentPlayer.symbol}`
     if (this.turns < 5) return this.turnChange()
     if (this.horizantalCheck(x, playerCheck) || this.diagnalCheck(playerCheck) || this.verticalCheck(y, playerCheck)) {
-      return `${this.currentPlayer.name} you win!`
+      return true
     } else {
       this.turnChange()
-      if (this.turns >= 9) return 'tie game'
-      return 'keep trying'
+      if (this.turns >= 9) return 'tie'
+      return false
     }
   }
   horizantalCheck (x, playerCheck) {
-    if (this.board[x].join('') === playerCheck) {
+    if (this.guiBoard.board[x].join('') === playerCheck) {
       return true
     } else {
       return false
@@ -125,7 +136,7 @@ class TicTacToe {
   verticalCheck (y, playerCheck) {
     let checkArra = []
     for (let i = 0; i < 3; i++) {
-      checkArra.push(this.board[i][y])
+      checkArra.push(this.guiBoard.board[i][y])
     }
     if (checkArra.join('') === playerCheck) {
       return true
@@ -137,8 +148,8 @@ class TicTacToe {
     let checkOne = []
     let checkTwo = []
     for (let i = 0, j = 2; i < 3; i++, j--) {
-      checkOne.push(this.board[i][i])
-      checkTwo.push(this.board[i][j])
+      checkOne.push(this.guiBoard.board[i][i])
+      checkTwo.push(this.guiBoard.board[i][j])
     }
     if (checkOne.join('') === playerCheck || checkTwo.join('') === playerCheck) {
       return true
@@ -148,7 +159,20 @@ class TicTacToe {
   }
 
 }
+// =========================================
+// PLAYER CLASS
+// =========================================
+class Player {
+  constructor (name, symbol) {
+    this.name = name
+    this.symbol = symbol
+    this.totalScore = 0
+  }
+}
 
 // Create player 1 and player 2 forms and add them to the screen
 let playerOne = new PlayerForm('player1')
 let playerTwo = new PlayerForm('player2')
+let myBoard = new GameBoard()
+let myGame = new TicTacToe()
+myGame.guiBoard = myBoard

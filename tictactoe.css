@@ -2,4 +2,10 @@
   float: left;
   width: 33%;
   length: 100px;
+  border: 1px solid black;
+  text-align: center;
+  font-size: 40px;
+}
+#game-board{
+  margin-top: 50px;
 }
